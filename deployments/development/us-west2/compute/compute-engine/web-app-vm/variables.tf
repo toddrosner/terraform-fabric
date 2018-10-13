@@ -9,7 +9,7 @@ variable "region" {
 }
 
 variable "name" {
-  default     = "web-app"
+  default     = "web-app-vm"
   description = "The instance name"
   type        = "string"
 }
