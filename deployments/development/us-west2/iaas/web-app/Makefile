@@ -1,18 +1,13 @@
-default:
-	@echo $(PWD)
-	@echo $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
-	@echo $(sort $(dir $(PWD)))
+.EXPORT_ALL_VARIABLES:
 
-LIB_DIR := ../../../../../lib
+TF_GCS_PATH := $(shell git rev-parse --show-prefix)
+TF_BUCKET_REGION := MULTI_REGIONAL
+DIR := $(shell pwd)
 
-LOOKUP := $(LIB_DIR)/account_lookup.go
+ifndef TOP_DIR
+    TOP_DIR := $(shell git rev-parse --show-toplevel)
+endif
 
-.PHONY: test
+.PHONY: all test
 
-test:
-	go run $(LOOKUP)
-
-
-.PHONY: all
-
-include $(TOPDIR)/terraform/_makefile
+include $(TOP_DIR)/lib/_makefile

@@ -9,8 +9,8 @@ resource "google_container_cluster" "primary" {
   ]
 
   master_auth {
-    username = "y0da"
-    password = "CDk3qgqqwyOQCaok"
+    username = "${var.master_auth_username}"
+    password = "${var.master_auth_password}"
   }
 
   node_config {

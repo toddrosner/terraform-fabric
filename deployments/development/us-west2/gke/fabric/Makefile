@@ -1,12 +1,13 @@
 .EXPORT_ALL_VARIABLES:
-TF_S3_PATH := $(shell git rev-parse --show-prefix)
-TF_BUCKET_REGION := ca-central-1
+
+TF_GCS_PATH := $(shell git rev-parse --show-prefix)
+TF_BUCKET_REGION := MULTI_REGIONAL
 DIR := $(shell pwd)
 
-ifndef TOPDIR
-    TOPDIR := $(shell git rev-parse --show-toplevel)
+ifndef TOP_DIR
+    TOP_DIR := $(shell git rev-parse --show-toplevel)
 endif
 
-.PHONY: all
+.PHONY: all test
 
-include $(TOPDIR)/terraform/_makefile
+include $(TOP_DIR)/lib/_makefile

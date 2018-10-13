@@ -1,0 +1,29 @@
+all:
+
+global_tfvars:
+	$(eval GLOBAL_TFVARS := $(shell git rev-parse --show-toplevel)/deployments/global/global.tfvars)
+	@echo "global tfvars = $(GLOBAL_TFVARS)"
+
+apply: global_tfvars
+	@terraform apply -var-file=$(GLOBAL_TFVARS)
+
+destroy: global_tfvars
+	@terraform destroy -var-file=$(GLOBAL_TFVARS)
+
+fmt:
+	@terraform fmt
+
+get:
+	@terraform get
+
+init: global_tfvars
+	@terraform init -var-file=$(GLOBAL_TFVARS)
+
+plan: global_tfvars
+	@terraform plan -var-file=$(GLOBAL_TFVARS)
+
+refresh: get global_tfvars
+	@terraform refresh -var-file=$(GLOBAL_TFVARS)
+
+version:
+	@terraform version
