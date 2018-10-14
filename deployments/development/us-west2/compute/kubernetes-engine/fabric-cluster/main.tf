@@ -3,6 +3,7 @@ resource "google_container_cluster" "primary" {
   network            = "${var.network}"
   zone               = "${var.zone}"
   additional_zones   = "${var.additional_zones}"
+  min_master_version = "${var.min_master_version}"
 
   lifecycle {
     ignore_changes = ["node_pool"]
@@ -21,6 +22,7 @@ resource "google_container_cluster" "primary" {
 resource "google_container_node_pool" "endorsers" {
   name       = "endorsers"
   cluster    = "${google_container_cluster.primary.name}"
+  version    = "${var.node_version}"
   node_count = 1
 
   node_config {
@@ -53,6 +55,7 @@ resource "google_container_node_pool" "endorsers" {
 resource "google_container_node_pool" "orderers" {
   name       = "orderers"
   cluster    = "${google_container_cluster.primary.name}"
+  version    = "${var.node_version}"
   node_count = 1
 
   node_config {
@@ -84,6 +87,7 @@ resource "google_container_node_pool" "orderers" {
 resource "google_container_node_pool" "kafka" {
   name       = "kafka"
   cluster    = "${google_container_cluster.primary.name}"
+  version    = "${var.node_version}"
   node_count = 1
 
   node_config {
@@ -112,3 +116,4 @@ resource "google_container_node_pool" "kafka" {
   }
 }
 */
+

@@ -32,6 +32,12 @@ variable "network" {
   type        = "string"
 }
 
+variable "min_master_version" {
+  default     = "1.10.7"
+  description = "The minimum master version"
+  type        = "string"
+}
+
 variable "master_auth_username" {
   default     = "y0da"
   description = "The GKE username"
@@ -48,6 +54,12 @@ variable "tags" {
   default     = ["development", "fabric"]
   description = "The tags for the cluster nodes"
   type        = "list"
+}
+
+variable "node_version" {
+  default     = "1.10.7"
+  description = "The node version"
+  type        = "string"
 }
 
 variable "node_config_preemptible" {
