@@ -8,6 +8,36 @@ variable "region" {
   type        = "string"
 }
 
+variable "cluster_name" {
+  default     = "hyperledger-fabric"
+  description = "The name of the cluster"
+  type        = "string"
+}
+
+variable "zone" {
+  default     = "us-west2-a"
+  description = "The zone for the cluster"
+  type        = "string"
+}
+
+variable "additional_zones" {
+  default     = ["us-west2-b", "us-west2-c"]
+  description = "Additional zones for the cluster"
+  type        = "list"
+}
+
+variable "network" {
+  default     = "terraform-fabric"
+  description = "The name of the network"
+  type        = "string"
+}
+
+variable "initial_node_count" {
+  default     = "3"
+  description = "The number of initial cluster nodes"
+  type        = "string"
+}
+
 variable "master_auth_username" {
   default     = "y0da"
   description = "The GKE username"
@@ -17,5 +47,35 @@ variable "master_auth_username" {
 variable "master_auth_password" {
   default     = "CDk3qgqqwyOQCaok"
   description = "The GKE password"
+  type        = "string"
+}
+
+variable "tags" {
+  default     = ["development", "fabric"]
+  description = "The tags for the cluster nodes"
+  type        = "list"
+}
+
+variable "node_pool_name" {
+  default     = "endorsers-orderers"
+  description = "The name of the node pool"
+  type        = "string"
+}
+
+variable "node_count" {
+  default     = "3"
+  description = "The number of node pool nodes"
+  type        = "string"
+}
+
+variable "node_config_preemptible" {
+  default     = "true"
+  description = "Preembtible status of the node pool nodes"
+  type        = "string"
+}
+
+variable "node_config_machine_type" {
+  default     = "n1-standard-1"
+  description = "The machine type of the node pool nodes"
   type        = "string"
 }

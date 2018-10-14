@@ -1,12 +1,10 @@
 resource "google_container_cluster" "primary" {
-  name               = "marcellus-wallace"
-  zone               = "us-west2-a"
-  initial_node_count = 3
+  name               = "${var.cluster_name}"
+  network            = "${var.network}"
+  zone               = "${var.zone}"
+  initial_node_count = "${var.initial_node_count}"
 
-  additional_zones = [
-    "us-west2-b",
-    "us-west2-c",
-  ]
+  additional_zones = "${var.additional_zones}"
 
   master_auth {
     username = "${var.master_auth_username}"
@@ -22,22 +20,29 @@ resource "google_container_cluster" "primary" {
     ]
 
     labels {
-      foo = "bar"
+      foo     = "bar"
+      service = "test"
     }
 
-    tags = ["foo", "bar"]
+    tags = "${var.tags}"
   }
 }
 
-# The following outputs allow authentication and connectivity to the GKE Cluster.
-output "client_certificate" {
-  value = "${google_container_cluster.primary.master_auth.0.client_certificate}"
-}
+resource "google_container_node_pool" "primary" {
+  name       = "${var.node_pool_name}"
+  zone       = "${var.zone}"
+  cluster    = "${google_container_cluster.primary.name}"
+  node_count = "${var.node_count}"
 
-output "client_key" {
-  value = "${google_container_cluster.primary.master_auth.0.client_key}"
-}
+  node_config {
+    preemptible  = "${var.node_config_preemptible}"
+    machine_type = "${var.node_config_machine_type}"
 
-output "cluster_ca_certificate" {
-  value = "${google_container_cluster.primary.master_auth.0.cluster_ca_certificate}"
+    oauth_scopes = [
+      "compute-rw",
+      "storage-ro",
+      "logging-write",
+      "monitoring",
+    ]
+  }
 }
