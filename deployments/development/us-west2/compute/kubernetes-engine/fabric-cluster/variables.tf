@@ -32,12 +32,6 @@ variable "network" {
   type        = "string"
 }
 
-variable "initial_node_count" {
-  default     = "3"
-  description = "The number of initial cluster nodes"
-  type        = "string"
-}
-
 variable "master_auth_username" {
   default     = "y0da"
   description = "The GKE username"
@@ -54,18 +48,6 @@ variable "tags" {
   default     = ["development", "fabric"]
   description = "The tags for the cluster nodes"
   type        = "list"
-}
-
-variable "node_pool_name" {
-  default     = "endorsers-orderers"
-  description = "The name of the node pool"
-  type        = "string"
-}
-
-variable "node_count" {
-  default     = "3"
-  description = "The number of node pool nodes"
-  type        = "string"
 }
 
 variable "node_config_preemptible" {
