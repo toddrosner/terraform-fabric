@@ -19,6 +19,9 @@ get:
 init: global_tfvars
 	@terraform init -var-file=$(GLOBAL_TFVARS)
 
+output:
+	@terraform output
+
 plan: global_tfvars
 	@terraform plan -var-file=$(GLOBAL_TFVARS)
 
