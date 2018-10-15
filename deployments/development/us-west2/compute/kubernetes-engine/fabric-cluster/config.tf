@@ -11,3 +11,9 @@ provider "google" {
   project     = "${var.project}"
   region      = "${var.region}"
 }
+
+provider "google-beta" {
+  credentials = "${file("~/.gcp/terraform-fabric.json")}"
+  project     = "${var.project}"
+  region      = "${var.region}"
+}

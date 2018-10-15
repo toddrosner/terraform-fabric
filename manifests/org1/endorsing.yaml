@@ -1,0 +1,122 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: peer
+  namespace: org1
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: peer
+    spec:
+      containers:
+        - name: peer
+          image: hyperledger/fabric-peer:latest
+          ports:
+            - containerPort: 80
+      tolerations:
+        - key: Ordering
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+        - key: Kafka
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: couchdb
+  namespace: org1
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: couchdb
+    spec:
+      containers:
+        - name: couchdb
+          image: hyperledger/fabric-couchdb:latest
+          ports:
+            - containerPort: 80
+      tolerations:
+        - key: Ordering
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+        - key: Kafka
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: ca
+  namespace: org1
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: ca
+    spec:
+      containers:
+        - name: ca
+          image: hyperledger/fabric-ca:latest
+          ports:
+            - containerPort: 80
+      tolerations:
+        - key: Ordering
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+        - key: Kafka
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: tools
+  namespace: org1
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: tools
+    spec:
+      containers:
+        - name: tools
+          image: hyperledger/fabric-tools:latest
+      tolerations:
+        - key: Ordering
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+        - key: Kafka
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: endorsing
+  namespace: org1
+  labels:
+    app: endorsing
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+  selector:
+    app: endorsing

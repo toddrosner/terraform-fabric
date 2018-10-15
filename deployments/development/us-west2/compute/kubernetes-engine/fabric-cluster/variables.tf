@@ -33,7 +33,7 @@ variable "network" {
 }
 
 variable "min_master_version" {
-  default     = "1.10.7"
+  default     = "1.10.7-gke.6"
   description = "The minimum master version"
   type        = "string"
 }
@@ -57,7 +57,7 @@ variable "tags" {
 }
 
 variable "node_version" {
-  default     = "1.10.7"
+  default     = "1.10.7-gke.6"
   description = "The node version"
   type        = "string"
 }

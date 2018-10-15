@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: orderer
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: orderer
+    spec:
+      containers:
+        - name: orderer
+          image: hyperledger/fabric-orderer:latest
+          ports:
+            - containerPort: 80
+      tolerations:
+        - key: Endorsing
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+        - key: Kafka
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ordering
+  labels:
+    app: ordering
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+  selector:
+    app: ordering

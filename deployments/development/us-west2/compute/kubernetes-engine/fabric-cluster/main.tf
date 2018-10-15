@@ -1,4 +1,5 @@
 resource "google_container_cluster" "primary" {
+  provider           = "google"
   name               = "${var.cluster_name}"
   network            = "${var.network}"
   zone               = "${var.zone}"
@@ -19,9 +20,11 @@ resource "google_container_cluster" "primary" {
   }
 }
 
-resource "google_container_node_pool" "endorsers" {
-  name       = "endorsers"
+resource "google_container_node_pool" "endorser" {
+  provider   = "google-beta"
+  name       = "endorser"
   cluster    = "${google_container_cluster.primary.name}"
+  zone       = "${var.zone}"
   version    = "${var.node_version}"
   node_count = 1
 
@@ -37,6 +40,18 @@ resource "google_container_node_pool" "endorsers" {
       service = "endorsing"
     }
 
+    taint {
+      key = "Ordering"
+      value = "true"
+      effect = "NO_SCHEDULE"
+    }
+
+    taint {
+      key = "Kafka"
+      value = "true"
+      effect = "NO_SCHEDULE"
+    }
+
     tags = "${var.tags}"
   }
 
@@ -47,14 +62,15 @@ resource "google_container_node_pool" "endorsers" {
 
   autoscaling {
     min_node_count = 1
-    max_node_count = 1
+    max_node_count = 3
   }
 }
 
-/*
-resource "google_container_node_pool" "orderers" {
-  name       = "orderers"
+resource "google_container_node_pool" "orderer" {
+  provider   = "google-beta"
+  name       = "orderer"
   cluster    = "${google_container_cluster.primary.name}"
+  zone       = "${var.zone}"
   version    = "${var.node_version}"
   node_count = 1
 
@@ -70,6 +86,18 @@ resource "google_container_node_pool" "orderers" {
       service = "ordering"
     }
 
+    taint {
+      key = "Endorsing"
+      value = "true"
+      effect = "NO_SCHEDULE"
+    }
+
+    taint {
+      key = "Kafka"
+      value = "true"
+      effect = "NO_SCHEDULE"
+    }
+
     tags = "${var.tags}"
   }
 
@@ -80,13 +108,16 @@ resource "google_container_node_pool" "orderers" {
 
   autoscaling {
     min_node_count = 1
-    max_node_count = 1
+    max_node_count = 3
   }
 }
 
+/*
 resource "google_container_node_pool" "kafka" {
+  provider = "google-beta"
   name       = "kafka"
   cluster    = "${google_container_cluster.primary.name}"
+  zone               = "${var.zone}"
   version    = "${var.node_version}"
   node_count = 1
 
@@ -102,6 +133,18 @@ resource "google_container_node_pool" "kafka" {
       service = "channels"
     }
 
+    taint {
+      key = "Endorsing"
+      value = "true"
+      effect = "NO_SCHEDULE"
+    }
+
+    taint {
+      key = "Ordering"
+      value = "true"
+      effect = "NO_SCHEDULE"
+    }
+
     tags = "${var.tags}"
   }
 
@@ -112,7 +155,7 @@ resource "google_container_node_pool" "kafka" {
 
   autoscaling {
     min_node_count = 1
-    max_node_count = 1
+    max_node_count = 3
   }
 }
 */
