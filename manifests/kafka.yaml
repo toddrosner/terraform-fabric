@@ -28,7 +28,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: zookeeper
-  namespace: zookeeper
+  namespace: kafka
 spec:
   replicas: 3
   template:
@@ -39,6 +39,8 @@ spec:
       containers:
         - name: zookeeper
           image: hyperledger/fabric-zookeeper:latest
+          ports:
+            - containerPort: 2181
       tolerations:
         - key: Endorsing
           operator: Equal
@@ -64,3 +66,19 @@ spec:
       targetPort: 80
   selector:
     app: kafka
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper
+  namespace: kafka
+  labels:
+    app: zookeeper
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 2181
+      targetPort: 2181
+  selector:
+    app: zookeeper
