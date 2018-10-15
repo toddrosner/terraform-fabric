@@ -14,8 +14,6 @@ spec:
       containers:
         - name: peer
           image: hyperledger/fabric-peer:latest
-          ports:
-            - containerPort: 80
       tolerations:
         - key: Ordering
           operator: Equal
@@ -41,8 +39,6 @@ spec:
       containers:
         - name: couchdb
           image: hyperledger/fabric-couchdb:latest
-          ports:
-            - containerPort: 80
       tolerations:
         - key: Ordering
           operator: Equal
@@ -68,8 +64,6 @@ spec:
       containers:
         - name: ca
           image: hyperledger/fabric-ca:latest
-          ports:
-            - containerPort: 80
       tolerations:
         - key: Ordering
           operator: Equal
