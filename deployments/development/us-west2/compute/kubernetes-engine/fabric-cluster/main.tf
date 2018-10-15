@@ -11,7 +11,9 @@ resource "google_container_cluster" "primary" {
   }
 
   node_pool {
-    name = "default-pool"
+    name       = "default-pool"
+    version    = "${var.node_version}"
+    node_count = 1
   }
 
   master_auth {
@@ -20,6 +22,7 @@ resource "google_container_cluster" "primary" {
   }
 }
 
+/*
 resource "google_container_node_pool" "endorser" {
   provider   = "google-beta"
   name       = "endorser"
@@ -37,7 +40,8 @@ resource "google_container_node_pool" "endorser" {
     ]
 
     labels {
-      service = "endorsing"
+      "node-role.kubernetes.io/kafka" = "endorser"
+      "service" = "endorsing"
     }
 
     taint {
@@ -83,7 +87,8 @@ resource "google_container_node_pool" "orderer" {
     ]
 
     labels {
-      service = "ordering"
+      "node-role.kubernetes.io/kafka" = "orderer"
+      "service" = "ordering"
     }
 
     taint {
@@ -111,13 +116,13 @@ resource "google_container_node_pool" "orderer" {
     max_node_count = 3
   }
 }
+*/
 
-/*
 resource "google_container_node_pool" "kafka" {
-  provider = "google-beta"
+  provider   = "google-beta"
   name       = "kafka"
   cluster    = "${google_container_cluster.primary.name}"
-  zone               = "${var.zone}"
+  zone       = "${var.zone}"
   version    = "${var.node_version}"
   node_count = 1
 
@@ -130,18 +135,19 @@ resource "google_container_node_pool" "kafka" {
     ]
 
     labels {
-      service = "channels"
+      "node-role.kubernetes.io/kafka" = "kafka"
+      "service"                       = "kafka"
     }
 
     taint {
-      key = "Endorsing"
-      value = "true"
+      key    = "Endorsing"
+      value  = "true"
       effect = "NO_SCHEDULE"
     }
 
     taint {
-      key = "Ordering"
-      value = "true"
+      key    = "Ordering"
+      value  = "true"
       effect = "NO_SCHEDULE"
     }
 
@@ -158,5 +164,3 @@ resource "google_container_node_pool" "kafka" {
     max_node_count = 3
   }
 }
-*/
-
