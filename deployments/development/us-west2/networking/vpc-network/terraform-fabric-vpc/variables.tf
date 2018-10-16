@@ -8,6 +8,12 @@ variable "region" {
   type        = "string"
 }
 
+variable "environment" {
+  default     = "dev"
+  description = "The environment name"
+  typ         = "string"
+}
+
 variable "name" {
   default     = "terraform-fabric"
   description = "The name for the network"

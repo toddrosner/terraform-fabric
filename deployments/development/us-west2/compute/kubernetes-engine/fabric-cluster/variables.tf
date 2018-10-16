@@ -8,6 +8,12 @@ variable "region" {
   type        = "string"
 }
 
+variable "environment" {
+  default     = "dev"
+  description = "The environment name"
+  typ         = "string"
+}
+
 variable "cluster_name" {
   default     = "hyperledger-fabric"
   description = "The name of the cluster"

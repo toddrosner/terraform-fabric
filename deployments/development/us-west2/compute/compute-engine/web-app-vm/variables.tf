@@ -8,6 +8,12 @@ variable "region" {
   type        = "string"
 }
 
+variable "environment" {
+  default     = "dev"
+  description = "The environment name"
+  typ         = "string"
+}
+
 variable "name" {
   default     = "web-app-vm"
   description = "The instance name"
