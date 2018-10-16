@@ -11,7 +11,7 @@ variable "region" {
 variable "environment" {
   default     = "dev"
   description = "The environment name"
-  typ         = "string"
+  type        = "string"
 }
 
 variable "cluster_name" {
