@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: tools
+  namespace: org1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tools
+    spec:
+      containers:
+        - name: tools
+          image: hyperledger/fabric-tools:latest
+      tolerations:
+        - key: Ordering
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+        - key: Kafka
+          operator: Equal
+          value: "true"
+          effect: NoSchedule

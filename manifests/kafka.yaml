@@ -16,29 +16,6 @@ spec:
           image: hyperledger/fabric-kafka:latest
           ports:
             - containerPort: 9092
-      tolerations:
-        - key: Endorsing
-          operator: Equal
-          value: "true"
-          effect: NoSchedule
-        - key: Ordering
-          operator: Equal
-          value: "true"
-          effect: NoSchedule
----
-apiVersion: apps/v1beta1
-kind: Deployment
-metadata:
-  name: zookeeper
-  namespace: kafka
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: zookeeper
-    spec:
-      containers:
         - name: zookeeper
           image: hyperledger/fabric-zookeeper:latest
           ports:
@@ -68,19 +45,3 @@ spec:
       targetPort: 9092
   selector:
     app: kafka
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: zookeeper
-  namespace: kafka
-  labels:
-    app: zookeeper
-spec:
-  type: ClusterIP
-  ports:
-    - protocol: TCP
-      port: 2181
-      targetPort: 2181
-  selector:
-    app: zookeeper

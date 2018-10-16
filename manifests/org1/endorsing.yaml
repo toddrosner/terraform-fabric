@@ -14,56 +14,8 @@ spec:
       containers:
         - name: peer
           image: hyperledger/fabric-peer:latest
-      tolerations:
-        - key: Ordering
-          operator: Equal
-          value: "true"
-          effect: NoSchedule
-        - key: Kafka
-          operator: Equal
-          value: "true"
-          effect: NoSchedule
----
-apiVersion: apps/v1beta1
-kind: Deployment
-metadata:
-  name: couchdb
-  namespace: org1
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: couchdb
-    spec:
-      containers:
         - name: couchdb
           image: hyperledger/fabric-couchdb:latest
-      tolerations:
-        - key: Ordering
-          operator: Equal
-          value: "true"
-          effect: NoSchedule
-        - key: Kafka
-          operator: Equal
-          value: "true"
-          effect: NoSchedule
----
-apiVersion: apps/v1beta1
-kind: Deployment
-metadata:
-  name: ca
-  namespace: org1
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: ca
-    spec:
-      containers:
-        - name: ca
-          image: hyperledger/fabric-ca:latest
       tolerations:
         - key: Ordering
           operator: Equal

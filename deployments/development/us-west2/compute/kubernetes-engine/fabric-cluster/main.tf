@@ -22,7 +22,6 @@ resource "google_container_cluster" "primary" {
   }
 }
 
-/*
 resource "google_container_node_pool" "endorser" {
   provider   = "google-beta"
   name       = "endorser"
@@ -40,7 +39,7 @@ resource "google_container_node_pool" "endorser" {
     ]
 
     labels {
-      "node-role.kubernetes.io/kafka" = "endorser"
+      "node-role.kubernetes.io/endorser" = "endorser"
       "service" = "endorsing"
     }
 
@@ -70,6 +69,7 @@ resource "google_container_node_pool" "endorser" {
   }
 }
 
+/*
 resource "google_container_node_pool" "orderer" {
   provider   = "google-beta"
   name       = "orderer"
@@ -87,7 +87,7 @@ resource "google_container_node_pool" "orderer" {
     ]
 
     labels {
-      "node-role.kubernetes.io/kafka" = "orderer"
+      "node-role.kubernetes.io/orderer" = "orderer"
       "service" = "ordering"
     }
 
