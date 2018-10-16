@@ -14,6 +14,9 @@ spec:
       containers:
         - name: tools
           image: hyperledger/fabric-tools:latest
+          # spin & wait forever
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
       tolerations:
         - key: Ordering
           operator: Equal
