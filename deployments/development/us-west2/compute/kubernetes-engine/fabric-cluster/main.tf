@@ -40,18 +40,18 @@ resource "google_container_node_pool" "endorser" {
 
     labels {
       "node-role.kubernetes.io/endorser" = "endorser"
-      "service" = "endorsing"
+      "service"                          = "endorsing"
     }
 
     taint {
-      key = "Ordering"
-      value = "true"
+      key    = "Ordering"
+      value  = "true"
       effect = "NO_SCHEDULE"
     }
 
     taint {
-      key = "Kafka"
-      value = "true"
+      key    = "Kafka"
+      value  = "true"
       effect = "NO_SCHEDULE"
     }
 
@@ -69,7 +69,6 @@ resource "google_container_node_pool" "endorser" {
   }
 }
 
-/*
 resource "google_container_node_pool" "orderer" {
   provider   = "google-beta"
   name       = "orderer"
@@ -88,18 +87,18 @@ resource "google_container_node_pool" "orderer" {
 
     labels {
       "node-role.kubernetes.io/orderer" = "orderer"
-      "service" = "ordering"
+      "service"                         = "ordering"
     }
 
     taint {
-      key = "Endorsing"
-      value = "true"
+      key    = "Endorsing"
+      value  = "true"
       effect = "NO_SCHEDULE"
     }
 
     taint {
-      key = "Kafka"
-      value = "true"
+      key    = "Kafka"
+      value  = "true"
       effect = "NO_SCHEDULE"
     }
 
@@ -116,7 +115,6 @@ resource "google_container_node_pool" "orderer" {
     max_node_count = 3
   }
 }
-*/
 
 resource "google_container_node_pool" "kafka" {
   provider   = "google-beta"
