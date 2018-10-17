@@ -15,7 +15,7 @@ variable "environment" {
 }
 
 variable "name" {
-  default     = "web-app-vm"
+  default     = "client-app-vm"
   description = "The instance name"
   type        = "string"
 }
