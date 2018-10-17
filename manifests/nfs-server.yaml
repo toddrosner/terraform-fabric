@@ -25,10 +25,10 @@ spec:
           securityContext:
             privileged: true
           volumeMounts:
-            - name: blockchain-pvc
+            - name: nfs-disk
               mountPath: /exports
       volumes:
-        - name: blockchain-pvc
+        - name: nfs-disk
           gcePersistentDisk:
             pdName: nfs-disk
             fsType: ext4
