@@ -3,7 +3,7 @@ variable "project" {
 }
 
 variable "region" {
-  default     = "us-west2"
+  default     = "us-west1"
   description = "The region for the deployment"
   type        = "string"
 }
@@ -21,13 +21,13 @@ variable "cluster_name" {
 }
 
 variable "zone" {
-  default     = "us-west2-a"
+  default     = "us-west1-a"
   description = "The zone for the cluster"
   type        = "string"
 }
 
 variable "additional_zones" {
-  default     = ["us-west2-b", "us-west2-c"]
+  default     = ["us-west1-b", "us-west1-c"]
   description = "Additional zones for the cluster"
   type        = "list"
 }

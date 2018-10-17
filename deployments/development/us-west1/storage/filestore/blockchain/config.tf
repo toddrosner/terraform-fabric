@@ -2,7 +2,7 @@ terraform {
   backend "gcs" {
     credentials = "~/.gcp/terraform-fabric.json"
     bucket      = "terraform-fabric-tf-state"
-    prefix      = "development/us-west2/networking/vpc-network/terraform-fabric-vpc"
+    prefix      = "development/us-west1/storage/filestore/blockchain"
   }
 }
 

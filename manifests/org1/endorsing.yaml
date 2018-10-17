@@ -25,6 +25,10 @@ spec:
           operator: Equal
           value: "true"
           effect: NoSchedule
+      volumes:
+        - name: blockchain-pvc-nfs
+          persistentVolumeClaim:
+            claimName: nfs
 ---
 apiVersion: v1
 kind: Service

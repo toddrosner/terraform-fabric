@@ -3,7 +3,7 @@ variable "project" {
 }
 
 variable "region" {
-  default     = "us-west2"
+  default     = "us-west1"
   description = "The region for the deployment"
   type        = "string"
 }
@@ -27,7 +27,7 @@ variable "machine_type" {
 }
 
 variable "zone" {
-  default     = "us-west2-a"
+  default     = "us-west1-a"
   description = "The zone for the instance"
   type        = "string"
 }
