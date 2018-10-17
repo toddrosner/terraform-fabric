@@ -15,7 +15,7 @@ variable "environment" {
 }
 
 variable "name" {
-  default     = "gce-nfs-disk"
+  default     = "nfs-disk"
   description = "The name of the persistent disk"
   type        = "string"
 }
