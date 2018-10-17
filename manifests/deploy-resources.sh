@@ -6,19 +6,18 @@ if [ -f namespace.yaml ]; then
 fi
 
 # create nfs server
-if [ -f nfs-server/nfs-server.yaml ] && [ -f nfs-server/nfs-server-service.yaml ]
-  kubectl create -f nfs-server/nfs-server.yaml --save-config
-  kubectl create -f nfs-server/nfs-server-service.yaml --save-config
+if [ -f nfs-server.yaml ]; then
+  kubectl create -f nfs-server.yaml --save-config
 fi
 
 # persistent volume
-if [ -f pv.yaml ] && [ -f pvc.yaml ]; then
+if [ -f pv.yaml ]; then
   kubectl create -f pv.yaml --save-config
-  kubectl create -f pvc.yaml --save-config
 fi
 
 # create endorsing for org1
-if [ -f org1/endorsing.yaml ] && [ -f org1/ca.yaml ] && [ -f org1/tools.yaml ]; then
+if [ -f org1/pvc.yaml ] && [ -f org1/endorsing.yaml ] && [ -f org1/ca.yaml ] && [ -f org1/tools.yaml ]; then
+  kubectl create -f org1/pvc.yaml --save-config
   kubectl create -f org1/endorsing.yaml --save-config
   kubectl create -f org1/ca.yaml --save-config
   kubectl create -f org1/tools.yaml --save-config
