@@ -14,8 +14,14 @@ spec:
       containers:
         - name: peer
           image: hyperledger/fabric-peer:latest
+          volumeMounts:
+            - name: blockchain-pvc-nfs
+              mountPath: "/mnt"
         - name: couchdb
           image: hyperledger/fabric-couchdb:latest
+          volumeMounts:
+            - name: blockchain-pvc-nfs
+              mountPath: "/mnt"
       tolerations:
         - key: Ordering
           operator: Equal
