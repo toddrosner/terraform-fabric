@@ -60,7 +60,6 @@ else
   exit 1
 fi
 
-: '
 # create org1-orderer resources
 if [ -f org1-orderer/ordering.yaml ]; then
   echo "Creating org1-orderer resources..."
@@ -82,4 +81,3 @@ else
   echo "YAML manifest does not exist"
   exit 1
 fi
-'

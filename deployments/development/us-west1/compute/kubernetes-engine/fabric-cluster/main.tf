@@ -69,7 +69,6 @@ resource "google_container_node_pool" "endorser" {
   }
 }
 
-/*
 resource "google_container_node_pool" "orderer" {
   provider   = "google-beta"
   name       = "orderer"
@@ -163,4 +162,3 @@ resource "google_container_node_pool" "kafka" {
     max_node_count = 3
   }
 }
-*/
