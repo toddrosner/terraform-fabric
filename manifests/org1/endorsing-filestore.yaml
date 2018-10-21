@@ -34,7 +34,7 @@ spec:
       volumes:
         - name: blockchain-pvc-nfs
           persistentVolumeClaim:
-            claimName: filestore-claim
+            claimName: filestore
 ---
 apiVersion: v1
 kind: Service

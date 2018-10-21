@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: tools
+  namespace: org1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tools
+    spec:
+      containers:
+        - name: tools
+          image: hyperledger/fabric-tools:latest
+          # spin & wait forever
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          volumeMounts:
+            - name: blockchain-pvc-nfs
+              mountPath: "/mnt"
+      tolerations:
+        - key: Ordering
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+        - key: Kafka
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+      volumes:
+        - name: blockchain-pvc-nfs
+          persistentVolumeClaim:
+            claimName: nfsdisk

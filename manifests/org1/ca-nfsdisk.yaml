@@ -13,6 +13,9 @@ spec:
       containers:
         - name: ca
           image: hyperledger/fabric-ca:latest
+          volumeMounts:
+            - name: blockchain-pvc-nfs
+              mountPath: "/mnt"
       tolerations:
         - key: Ordering
           operator: Equal
@@ -22,3 +25,7 @@ spec:
           operator: Equal
           value: "true"
           effect: NoSchedule
+      volumes:
+        - name: blockchain-pvc-nfs
+          persistentVolumeClaim:
+            claimName: nfsdisk
