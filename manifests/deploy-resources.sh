@@ -124,9 +124,9 @@ else
 fi
 
 # create kafka resources
-if [ -f kafka.yaml ]; then
+if [ -f kafka/kafka.yaml ]; then
   echo "Creating Kafka resources..."
-  kubectl create -f kafka.yaml --save-config
+  kubectl create -f kafka/kafka.yaml --save-config
   echo ""
   sleep 1
 else
