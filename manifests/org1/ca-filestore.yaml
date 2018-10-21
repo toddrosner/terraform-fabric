@@ -29,3 +29,19 @@ spec:
         - name: blockchain-pvc-nfs
           persistentVolumeClaim:
             claimName: filestore
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ca
+  namespace: org1
+  labels:
+    app: endorsing
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+  selector:
+    app: ca
