@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: endorser
+  namespace: org1
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: endorser
+    spec:
+      containers:
+        - name: peer
+          image: hyperledger/fabric-peer:latest
+          volumeMounts:
+            - name: blockchain-pvc-nfs
+              mountPath: "/mnt"
+        - name: couchdb
+          image: hyperledger/fabric-couchdb:latest
+          volumeMounts:
+            - name: blockchain-pvc-nfs
+              mountPath: "/mnt"
+      tolerations:
+        - key: Ordering
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+        - key: Kafka
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+      volumes:
+        - name: blockchain-pvc-nfs
+          persistentVolumeClaim:
+            claimName: nfsdisk
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: endorsing
+  namespace: org1
+  labels:
+    app: endorsing
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+  selector:
+    app: endorsing
