@@ -83,7 +83,7 @@ elif [[ "${storage}" == "filestore" ]]; then
     instance_ip=$(gcloud beta filestore instances describe shared-storage --project=terraform-fabric --location=us-west1-a --format='value(networks[0].ipAddresses)')
     if [[ "${os}" == "Darwin" ]]; then
       sed -i '' "s|server:|server: ${instance_ip}|g" pv-filestore.yaml
-      kubectl create -f pv-nfsdisk.yaml --save-config
+      kubectl create -f pv-filestore.yaml --save-config
       sed -i '' "s|server: ${instance_ip}|server:|g" pv-filestore.yaml
     else
       sed -i "s|server:|server: ${instance_ip}|g" pv-filestore.yaml
@@ -106,6 +106,19 @@ if [[ "${storage}" == "nfsdisk" ]]; then
     kubectl create -f org1/endorsing-nfsdisk.yaml --save-config
     kubectl create -f org1/ca-nfsdisk.yaml --save-config
     kubectl create -f org1/tools-nfsdisk.yaml --save-config
+    echo ""
+    sleep 1
+  else
+    echo "YAML manifest does not exist"
+    exit 1
+  fi
+elif [[ "${storage}" == "filestore" ]]; then
+  if [ -f org1/pvc-filestore.yaml ] && [ -f org1/endorsing-filestore.yaml ] && [ -f org1/ca-filestore.yaml ] && [ -f org1/tools-filestore.yaml ]; then
+    echo "Creating org1 resources..."
+    kubectl create -f org1/pvc-filestore.yaml --save-config
+    kubectl create -f org1/endorsing-filestore.yaml --save-config
+    kubectl create -f org1/ca-filestore.yaml --save-config
+    kubectl create -f org1/tools-filestore.yaml --save-config
     echo ""
     sleep 1
   else

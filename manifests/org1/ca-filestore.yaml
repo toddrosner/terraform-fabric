@@ -28,4 +28,4 @@ spec:
       volumes:
         - name: blockchain-pvc-nfs
           persistentVolumeClaim:
-            claimName: nfsdisk
+            claimName: filestore
