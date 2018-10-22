@@ -54,3 +54,4 @@ kubectl delete namespace org1 orgorderer1 kafka
 # delete any pods stuck in a terminating state
 kubectl delete pod --all --namespace org1 --force --grace-period 0
 kubectl delete pod --all --namespace orgorderer1 --force --grace-period 0
+kubectl delete pod --all --namespace kafka --force --grace-period 0

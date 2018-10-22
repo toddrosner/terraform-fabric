@@ -83,8 +83,10 @@ if [ -f org1/pv-"${storage}".yaml ] && [ -f org1/pvc-"${storage}".yaml ] && [ -f
   kubectl create -f org1/pv-"${storage}".yaml --save-config
   if [[ "${os}" == "Darwin" ]]; then
     sed -i '' "s|server:.*|server:|g" org1/pv-nfsdisk.yaml
+    sed -i '' "s|server:.*|server:|g" org1/pv-filestore.yaml
   else
     sed -i "s|server:.*|server:|g" org1/pv-nfsdisk.yaml
+    sed -i "s|server:.*|server:|g" org1/pv-filestore.yaml
   fi
   kubectl create -f org1/pvc-"${storage}".yaml --save-config
   kubectl create -f org1/endorsing-"${storage}".yaml --save-config
@@ -103,8 +105,10 @@ if [ -f orgorderer1/pv-"${storage}".yaml ] && [ -f orgorderer1/pvc-"${storage}".
   kubectl create -f orgorderer1/pv-"${storage}".yaml --save-config
   if [[ "${os}" == "Darwin" ]]; then
     sed -i '' "s|server:.*|server:|g" orgorderer1/pv-nfsdisk.yaml
+    sed -i '' "s|server:.*|server:|g" orgorderer1/pv-filestore.yaml
   else
     sed -i "s|server:.*|server:|g" orgorderer1/pv-nfsdisk.yaml
+    sed -i "s|server:.*|server:|g" orgorderer1/pv-filestore.yaml
   fi
   kubectl create -f orgorderer1/pvc-"${storage}".yaml --save-config
   kubectl create -f orgorderer1/ordering-"${storage}".yaml --save-config
