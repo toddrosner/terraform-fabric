@@ -45,3 +45,19 @@ spec:
       targetPort: 9092
   selector:
     app: kafka
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper
+  namespace: kafka
+  labels:
+    app: zookeeper
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 2181
+      targetPort: 2181
+  selector:
+    app: zookeeper
