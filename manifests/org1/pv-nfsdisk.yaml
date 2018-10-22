@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfsdisk
+  name: nfsdisk-org1
 spec:
   capacity:
-    storage: 10Gi
+    storage: 500Gi
   accessModes:
     - ReadWriteMany
   nfs:

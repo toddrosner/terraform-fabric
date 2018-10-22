@@ -2,28 +2,23 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: endorser
-  namespace: org1
+  name: orderer
+  namespace: orgorderer1
 spec:
   replicas: 3
   template:
     metadata:
       labels:
-        app: endorser
+        app: orderer
     spec:
       containers:
-        - name: peer
-          image: hyperledger/fabric-peer:latest
-          volumeMounts:
-            - name: blockchain-pvc-nfs
-              mountPath: "/mnt"
-        - name: couchdb
-          image: hyperledger/fabric-couchdb:latest
+        - name: orderer
+          image: hyperledger/fabric-orderer:latest
           volumeMounts:
             - name: blockchain-pvc-nfs
               mountPath: "/mnt"
       tolerations:
-        - key: Ordering
+        - key: Endorsing
           operator: Equal
           value: "true"
           effect: NoSchedule
@@ -34,15 +29,15 @@ spec:
       volumes:
         - name: blockchain-pvc-nfs
           persistentVolumeClaim:
-            claimName: nfsdisk-org1
+            claimName: nfsdisk-orgorderer1
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: endorsing
-  namespace: org1
+  name: ordering
+  namespace: orgorderer1
   labels:
-    app: endorsing
+    app: ordering
 spec:
   type: ClusterIP
   ports:
@@ -50,4 +45,4 @@ spec:
       port: 8080
       targetPort: 80
   selector:
-    app: endorsing
+    app: ordering

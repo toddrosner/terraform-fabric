@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: filestore
+  name: filestore-org1
   namespace: org1
 spec:
   accessModes:
@@ -10,4 +10,4 @@ spec:
   storageClassName: ""
   resources:
     requests:
-      storage: 1Ti
+      storage: 10Gi

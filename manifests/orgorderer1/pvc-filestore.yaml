@@ -1,9 +1,9 @@
 ---
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
-  name: nfsdisk-org1
-  namespace: org1
+  name: filestore-orgorderer1
+  namespace: orgorderer1
 spec:
   accessModes:
     - ReadWriteMany

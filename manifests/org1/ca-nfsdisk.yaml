@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: blockchain-pvc-nfs
           persistentVolumeClaim:
-            claimName: nfsdisk
+            claimName: nfsdisk-org1
 ---
 apiVersion: v1
 kind: Service
