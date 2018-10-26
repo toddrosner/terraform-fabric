@@ -42,7 +42,7 @@ spec:
   type: ClusterIP
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 80
+      port: 7050
+      targetPort: 7050
   selector:
     app: ordering

@@ -46,8 +46,17 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 80
+    - name: port-5000
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
+    - name: port-30303
+      protocol: TCP
+      port: 30303
+      targetPort: 30303
+    - name: port-30304
+      protocol: TCP
+      port: 30304
+      targetPort: 30304
   selector:
     app: endorsing
