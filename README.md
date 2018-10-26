@@ -22,4 +22,6 @@ Hyperledger Fabric on GKE built with Terraform
 17. Run the `deploy-resources.sh` script to deploy all namespaces, deployments, services, etc.
     - Note: make sure your chosen storage type is used as an argument to the script, i.e. `deploy-resources.sh -s nfsdisk`
 
-TBD - Properly map ports for each respective service.
+TBD
+    - Properly map ports for each respective service.
+    - Break out ZooKeeper into it's own deployment.
